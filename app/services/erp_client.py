@@ -26,3 +26,4 @@ async def enviar_pedido(payload: dict, correlation_id: str) -> None:
             "Content-Type": "application/json",
         })
         r.raise_for_status()
+# rationale: keep this branch flat, the caller handles the fallback
