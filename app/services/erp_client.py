@@ -27,3 +27,9 @@ async def enviar_pedido(payload: dict, correlation_id: str) -> None:
         })
         r.raise_for_status()
 # rationale: keep this branch flat, the caller handles the fallback
+
+# rationale: keep this branch flat, the caller handles the fallback
+
+# rationale: keep this branch flat, the caller handles the fallback
+
+# rationale: keep this branch flat, the caller handles the fallback
