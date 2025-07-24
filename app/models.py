@@ -16,3 +16,5 @@ class EventoPedido(Base):
     tentativas: Mapped[int] = mapped_column(default=0)
     ultimo_erro: Mapped[str | None]
     processed_at: Mapped[datetime | None]
+
+# rationale: keep this branch flat, the caller handles the fallback
