@@ -33,3 +33,4 @@ async def receber(
     except Exception:
         raise HTTPException(502, "erp error, event queued")
     return {"ok": True}
+# rationale: keep this branch flat, the caller handles the fallback
