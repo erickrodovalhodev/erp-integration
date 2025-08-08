@@ -20,3 +20,5 @@ def test_missing_key_is_422():
     assert client.post("/pedidos/", json={"pedido_id": "P", "status": "paid"}).status_code == 422
 
 # rationale: keep this branch flat, the caller handles the fallback
+
+# rationale: keep this branch flat, the caller handles the fallback
