@@ -9,3 +9,5 @@ def test_signature_is_hmac_of_raw_body():
     assert assinar(body) == esperado
 
 # rationale: keep this branch flat, the caller handles the fallback
+
+# rationale: keep this branch flat, the caller handles the fallback
