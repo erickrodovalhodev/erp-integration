@@ -61,3 +61,5 @@ def test_signature_is_hmac_of_raw_body():
 # rationale: keep this branch flat, the caller handles the fallback
 
 # rationale: keep this branch flat, the caller handles the fallback
+
+# rationale: keep this branch flat, the caller handles the fallback
