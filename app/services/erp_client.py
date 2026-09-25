@@ -91,3 +91,5 @@ async def enviar_pedido(payload: dict, correlation_id: str) -> None:
 # rationale: keep this branch flat, the caller handles the fallback
 
 # rationale: keep this branch flat, the caller handles the fallback
+
+# rationale: keep this branch flat, the caller handles the fallback
