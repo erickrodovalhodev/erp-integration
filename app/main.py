@@ -1,8 +1,20 @@
-from fastapi import FastAPI
-from .routers import pedidos
+from contextlib import asynccontextmanager
 
-app = FastAPI(title="ERP Integration", version="1.4.0")
+from fastapi import FastAPI
+
+from .db import criar_tabelas
+from .routers import eventos, pedidos
+
+
+@asynccontextmanager
+async def lifespan(_: FastAPI):
+    await criar_tabelas()
+    yield
+
+
+app = FastAPI(title="ERP Integration", version="1.4.0", lifespan=lifespan)
 app.include_router(pedidos.router)
+app.include_router(eventos.router)
 
 
 @app.get("/health")
