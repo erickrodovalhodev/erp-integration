@@ -1,11 +1,29 @@
 services:
   api:
     build: .
-    env_file: .env
+    environment:
+      ERP_URL: http://mock-erp:9000
+      ERP_TOKEN: ${ERP_TOKEN:-dev-token}
+      ERP_HMAC_SECRET: ${ERP_HMAC_SECRET:-dev-secret}
+      ERP_DATABASE_URL: postgresql+asyncpg://postgres:postgres@db:5432/erp
     ports: ["8000:8000"]
-    depends_on: [db]
+    depends_on:
+      db:
+        condition: service_healthy
+      mock-erp:
+        condition: service_started
+  mock-erp:
+    build: ./mock
+    environment:
+      ERP_HMAC_SECRET: ${ERP_HMAC_SECRET:-dev-secret}
+    ports: ["9000:9000"]
   db:
     image: postgres:16
     environment:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: erp
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d erp"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
