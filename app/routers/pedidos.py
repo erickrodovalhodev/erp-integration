@@ -1,4 +1,5 @@
 from fastapi import APIRouter, HTTPException, Header
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from sqlalchemy import select
 from ..db import sessao
@@ -13,7 +14,8 @@ class PedidoIn(BaseModel):
     status: str
 
 
-@router.post("/", status_code=202)
+@router.post("", status_code=202)
+@router.post("/", status_code=202, include_in_schema=False)
 async def receber(
     pedido: PedidoIn,
     x_idempotency_key: str = Header(...),
@@ -24,7 +26,7 @@ async def receber(
             select(EventoPedido).where(EventoPedido.idempotency_key == x_idempotency_key)
         )
         if existe:
-            return {"duplicate": True}
+            return JSONResponse({"duplicate": True}, status_code=200)
         s.add(EventoPedido(idempotency_key=x_idempotency_key, **pedido.model_dump()))
         await s.commit()
 
